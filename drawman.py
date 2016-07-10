@@ -12,7 +12,6 @@ def init_drawman():
     drawman_scale(default_scale)
     drawman_pen_size(default_pen_size)
 
-
 def drawman_scale(scale):
     global _drawman_scale
     _drawman_scale = scale
@@ -28,7 +27,6 @@ def drawman_pen_size(pen_size):
         _drawman_pen_size = t.pensize(1)
     else:
         _drawman_pen_size = t.pensize(pen_size)
-
 
 def test_drawman():
     """
