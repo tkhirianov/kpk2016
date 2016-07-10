@@ -1,19 +1,35 @@
 from turtle import Turtle
-default_scale = 10
+default_scale = 10 #коэффициент масштабирования Чертежника, по умолчанию = 10
+default_pen_size = 1 #толщина линии Чертежника, по умолчанию = 1
 
 def init_drawman():
-    global t, x_current, y_current, _drawman_scale
+    global t, x_current, y_current, _drawman_scale, _drawman_pen_size
     t = Turtle()
     t.penup()
     x_current = 0
     y_current = 0
     t.goto(x_current, y_current)
     drawman_scale(default_scale)
+    drawman_pen_size(default_pen_size)
 
 
 def drawman_scale(scale):
     global _drawman_scale
     _drawman_scale = scale
+
+def drawman_pen_size(pen_size):
+    """
+    :param pen_size: толщина линии Чертежника, диапазон от 1 до 10
+    :return: рисует линию указанной толщины
+    """
+    global _drawman_pen_size
+    if pen_size > 10:
+        _drawman_pen_size = t.pensize(10)
+    elif pen_size < 1:
+        _drawman_pen_size = t.pensize(1)
+    else:
+        _drawman_pen_size = t.pensize(pen_size)
+
 
 def test_drawman():
     """
@@ -38,10 +54,12 @@ def drawman_draw_grid(color_grid):
     """
     x_width = t.screen.window_width()
     y_height = t.screen.window_height()
+    t.speed(25)
     drawman_draw_Hline(x_width, y_height, color_grid)
     drawman_draw_Vline(x_width, y_height, color_grid)
     pen_up()
     to_point(0, 0)
+    t.speed(1)
 
 def drawman_draw_Vline(x_width, y_height, color):
     """
