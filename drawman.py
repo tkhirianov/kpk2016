@@ -20,7 +20,6 @@ def drawman_scale(scale):
 def drawman_pen_size(pen_size):
     """
     :param pen_size: толщина линии Чертежника, диапазон от 1 до 10
-    :return: рисует линию указанной толщины
     """
     global _drawman_pen_size
     if pen_size > 10:
