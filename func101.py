@@ -1,4 +1,8 @@
 from drawman101 import *
+import math
+shag=80
+vod=0.5
+drawman_scale(shag,vod)
 novid()
 col()
 size()
@@ -12,12 +16,12 @@ col('lightblue')
 pen_width(wid=3)
 x = -5.0
 pen_up()
-y=x**2
+y=math.sin(x)
 to_point(x, y)
 pen_down()
 while x <= 5:
     x += 0.2
-    y=x**2
+    y=math.sin(x)
     to_point(x,y)
     
 pen_up()
