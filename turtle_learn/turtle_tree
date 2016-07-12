@@ -1,0 +1,42 @@
+# понял, что сперва надо разобраться с черепахой
+# https://docs.python.org/2/library/turtle.html#turtle.rt
+# в классе использую другого исполнителя,
+# очень простой, с командной строкой (низкий порог вхождения):  http://pythonturtle.org/
+
+import turtle
+import random
+
+
+def init_turtle():
+
+    global t, x_current, y_current, _drawman_scale, _drawman_pen_size
+    t = turtle.Turtle()
+    t.left(90)
+    #t.reset()
+    t.color("green")
+
+def test_turtle():
+    for i in range(4):
+        t.fd(100)
+        t.right(90)
+
+
+def turtle_tree(size):
+    t.width(size / 25)
+    t.fd(size)
+    if size > 10:
+        scale = random.randrange(25) / 100.0 + 0.6
+        angle = random.randrange(10) + 30.0
+        t.right(angle / 2)
+        turtle_tree(size * scale)
+        t.left(angle)
+        turtle_tree(size * scale)
+        t.right(angle / 2)
+    t.fd(-size)
+
+init_turtle()
+if __name__ == '__main__':
+    import time
+    #test_turtle()
+    turtle_tree(100)
+    time.sleep(10)
