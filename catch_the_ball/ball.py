@@ -30,11 +30,19 @@ def click_ball(event):
 
 def move_all_balls(event):
     """ передвигает все шарики на чуть-чуть
-    """
     for obj in canvas.find_all():
         dx = randint(-1, 1)
         dy = randint(-1, 1)
-        canvas.move(obj, dx, dy)
+        canvas.move(obj, dx, dy)"""
+    global balls_coord
+    for obj in balls_coord:
+        x1, y1, x2, y2 =canvas.coords(obj[0])
+        # проверяем, не выйдет ли шарик за границы холста
+        if x1+obj[1]+obj[3]>=400 or x1+obj[1]<=0:
+            obj[1]=-obj[1] #меняем направление движения
+        if y1+obj[2]+obj[3]>=400 or y1+obj[2]<=0:
+            obj[2]=-obj[2]
+        canvas.move(obj[0],obj[1],obj[2])
 
 def create_random_ball():
     """
@@ -47,7 +55,10 @@ def create_random_ball():
     y = randint(0, int(canvas['height'])-1-2*R)
     #рисуем шарик и запоминаем его номер в num_oval
     num_oval = canvas.create_oval(x, y, x+R, y+R, width=0, fill=random_color())
-    balls_coord.append([x,y])# запоминаем координаты нового шарика
+    dx = randint(-2, 2)
+    dy = randint(-2, 2)
+    # запоминаем идентификатор, вектор и радиус движения нового шарика
+    balls_coord.append([num_oval, dx, dy, R])
     balls_num.append(num_oval)# запоминаем номер нового шарика
 
 def random_color():
