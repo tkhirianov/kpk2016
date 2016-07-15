@@ -5,6 +5,8 @@ ball_initial_number = 20
 ball_minimal_radius = 15
 ball_maximal_radius = 40
 ball_available_colors = ['green', 'blue', 'red', 'lightgray', '#FF00FF', '#FFFF00']
+balls_coord = []#список координат шариков
+balls_num = []#список номеров шариков
 
 def click_ball(event):
     """ Обработчик событий мышки для игрового холста canvas
@@ -12,12 +14,15 @@ def click_ball(event):
     По клику мышкой нужно удалять тот объект, на который мышка указывает.
     А также засчитываеть его в очки пользователя.
     """
-    global points, label, root
+    global points, label,  balls_coord, balls_num
     obj = canvas.find_closest(event.x, event.y)
     x1, y1, x2, y2 = canvas.coords(obj)
-
+    num = obj[0]# вытаскиваем номер объекта из кортежа
     if x1 <= event.x <= x2 and y1 <= event.y <= y2:
         canvas.delete(obj)
+        index = balls_num.index(num)# определяем индекс элемента списка, где храниться номер объекта
+        balls_num.pop(index)# удаляем элемент списка с номером объекта
+        balls_coord.pop(index)# удаляем элемент списка с координатами объекта
         points+=1
         label['text']=points
         create_random_ball()
@@ -36,11 +41,14 @@ def create_random_ball():
     создаёт шарик в случайном месте игрового холста canvas,
      при этом шарик не выходит за границы холста!
     """
+    global balls_coord, balls_num
     R = randint(ball_minimal_radius, ball_maximal_radius)
     x = randint(0, int(canvas['width'])-1-2*R)
     y = randint(0, int(canvas['height'])-1-2*R)
-    canvas.create_oval(x, y, x+2*R, y+2*R, width=1, fill=random_color())
-
+    #рисуем шарик и запоминаем его номер в num_oval
+    num_oval = canvas.create_oval(x, y, x+R, y+R, width=0, fill=random_color())
+    balls_coord.append([x,y])# запоминаем координаты нового шарика
+    balls_num.append(num_oval)# запоминаем номер нового шарика
 
 def random_color():
     """
