@@ -12,12 +12,14 @@ def click_ball(event):
     По клику мышкой нужно удалять тот объект, на который мышка указывает.
     А также засчитываеть его в очки пользователя.
     """
+    global points, label, root
     obj = canvas.find_closest(event.x, event.y)
     x1, y1, x2, y2 = canvas.coords(obj)
 
     if x1 <= event.x <= x2 and y1 <= event.y <= y2:
         canvas.delete(obj)
-        # FIXME: нужно учесть объект в очках
+        points+=1
+        label['text']=points
         create_random_ball()
 
 
@@ -55,9 +57,14 @@ def init_ball_catch_game():
         create_random_ball()
 
 def init_main_window():
-    global root, canvas
+    global root, canvas, label, points
 
     root = tkinter.Tk()
+    label_text = tkinter.Label(root, text = 'Набранные очки')
+    label_text.pack()
+    points = 0
+    label = tkinter.Label(root, text=points)#привязка к переменной
+    label.pack()
     canvas = tkinter.Canvas(root, background='white', width=400, height=400)
     canvas.bind("<Button>", click_ball)
     canvas.bind("<Motion>", move_all_balls)
