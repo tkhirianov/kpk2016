@@ -69,7 +69,7 @@ def random_color():
     #return choice(ball_available_colors)
     color = '#'
     for c in range(6):
-        color = color + choice(ball_color)
+        color = color + choice(ball_available_colors)
     return color
 
 
