@@ -4,7 +4,7 @@ from random import choice, randint
 ball_initial_number = 20
 ball_minimal_radius = 15
 ball_maximal_radius = 40
-ball_available_colors = ['green', 'blue', 'red', 'lightgray', '#FF00FF', '#FFFF00']
+ball_available_colors = '0123456789ABCDEF'#['green', 'blue', 'red', 'lightgray', '#FF00FF', '#FFFF00']
 balls_coord = []#список координат шариков
 balls_num = []#список номеров шариков
 
@@ -35,6 +35,7 @@ def move_all_balls(event):
         dy = randint(-1, 1)
         canvas.move(obj, dx, dy)"""
     global balls_coord
+    """каждый шарик движется по своей траектории"""
     for obj in balls_coord:
         x1, y1, x2, y2 =canvas.coords(obj[0])
         # проверяем, не выйдет ли шарик за границы холста
@@ -65,7 +66,11 @@ def random_color():
     """
     :return: Случайный цвет из некоторого набора цветов
     """
-    return choice(ball_available_colors)
+    #return choice(ball_available_colors)
+    color = '#'
+    for c in range(6):
+        color = color + choice(ball_color)
+    return color
 
 
 def init_ball_catch_game():
